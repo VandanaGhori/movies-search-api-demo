@@ -1,4 +1,4 @@
-echo "# movies-search-api-demo" >> README.mdpackage com.example.moviessearchapi;
+package com.example.moviessearchapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
