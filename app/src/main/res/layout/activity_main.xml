@@ -24,7 +24,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.tabs.TabLayout
+    <!--<com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -37,18 +37,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/second_tab" />
-    </com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.tabs.TabLayout>-->
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_marginTop="40dp"
+        android:layout_weight="0" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/enter_something">
+
+            <!--this is the actual edit text which takes the input-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
+        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Submit" />
+        android:layout_marginTop="20dp"
+        android:text="@string/search" />
+
 
     <Space
         android:layout_width="match_parent"

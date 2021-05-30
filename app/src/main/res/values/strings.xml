@@ -3,4 +3,6 @@
     <string name="movies_search">Movies Search</string>
     <string name="first_tab">First Tab</string>
     <string name="second_tab">Second Tab</string>
+    <string name="enter_something">Enter something</string>
+    <string name="search">Search</string>
 </resources>
