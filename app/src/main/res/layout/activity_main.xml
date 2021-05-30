@@ -74,6 +74,14 @@
         android:text="@string/search" />
 
 
+    <ListView
+        android:id="@+id/listMovie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/teal_700"
+        android:layout_marginTop="10dp"
+        android:dividerHeight="2dp"/>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
