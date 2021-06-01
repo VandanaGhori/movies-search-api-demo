@@ -2,21 +2,21 @@ package com.example.moviessearchapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.drawable.Drawable;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     List<Movies> moviesList;
     ListView mListViewMovies;
     CustomAdapter customAdapter;
+    static ImageView mImageViewFavourite;
+   // List<Movies> nominatedMoviesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +42,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 moviesList.clear();
                 if (validateInput()) {
-                    //customAdapter.notifyDataSetChanged();
-                    //Toast.makeText(getApplicationContext(),"Search happened.", Toast.LENGTH_LONG).show();
                     getMoviesTask(searchKey);
                 }
                 // TODO : API call and collect the data
-                // Toast.makeText(getApplicationContext(),"Search happened.", Toast.LENGTH_LONG).show();
                 bindDataToAdapter();
 
                 //For hiding the keyboard onClick of button
@@ -54,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mImageViewFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(CustomAdapter.nominatedMoviesList.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "No nominations are there.", Toast.LENGTH_LONG).show();
+                } else {
+                    MyDialog myDialog = new MyDialog();
+                    myDialog.show(getSupportFragmentManager(),"test");
+                }
+            }
+        });
     }
 
     private void getMoviesTask(String searchKey) {
@@ -62,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             result = getMoviesTask.execute(GetMoviesTask.URL + searchKey).get();
-            // Toast.makeText(this, "List of movies." + result,Toast.LENGTH_LONG).show();
-            // Log.i("OUTPUT", result);
 
             if (result.length() != 0) {
                 JSONObject jsonObject = new JSONObject(result);
@@ -84,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Movie name does not match.", Toast.LENGTH_LONG).show();
             }
-            //Toast.makeText(this, "Search." + search,Toast.LENGTH_LONG).show();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,8 +99,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        mMovieEditText = findViewById(R.id.edit_text);
-        mSearchButton = findViewById(R.id.search_button);
+        mMovieEditText = (EditText) findViewById(R.id.edit_text);
+        mSearchButton = (Button) findViewById(R.id.search_button);
+        mImageViewFavourite = (ImageView) findViewById(R.id.imageViewFavourite);
     }
 
     private boolean validateInput() {
@@ -106,9 +114,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bindDataToAdapter() {
-        //Toast.makeText(this,"Hello Bind Adapter.", Toast.LENGTH_LONG).show();
         mListViewMovies = (ListView) findViewById(R.id.listMovie);
-        customAdapter = new CustomAdapter(moviesList, this);
+        customAdapter = new CustomAdapter(moviesList,this);
         mListViewMovies.setAdapter(customAdapter);
         customAdapter.notifyDataSetChanged();
     }

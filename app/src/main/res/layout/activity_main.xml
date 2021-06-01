@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,6 +22,17 @@
             android:layout_gravity="center"
             android:text="@string/movies_search"
             android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/imageViewFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="12dp"
+            android:tooltipText="favourite"
+            app:tint="@color/white"
+            app:srcCompat="@drawable/ic_baseline_favorite"
+            />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -53,13 +65,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="@string/search" />
+        android:text="@string/search"
+        />
 
     <ListView
         android:id="@+id/listMovie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:divider="@color/purple_700"
-        android:dividerHeight="2dp" />
+        android:dividerHeight="2dp"
+        android:listSelector="@color/purple_500"/>
 </LinearLayout>
