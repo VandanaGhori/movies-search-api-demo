@@ -6,11 +6,17 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
     Button mSearchButton;
     String searchKey;
     List<Movies> moviesList;
-    ListView mListViewMovies;
+    static ListView mListViewMovies;
     CustomAdapter customAdapter;
     static ImageView mImageViewFavourite;
-   // List<Movies> nominatedMoviesList = new ArrayList<>();
+    LinearLayout linlaHeaderProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +74,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void getMoviesTask(String searchKey) {
         String result;
+        linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
+        linlaHeaderProgress.setVisibility(View.VISIBLE);
         GetMoviesTask getMoviesTask = new GetMoviesTask();
-
         try {
             result = getMoviesTask.execute(GetMoviesTask.URL + searchKey).get();
-
+            //Log.i("Format", result);
             if (result.length() != 0) {
+                linlaHeaderProgress.setVisibility(View.GONE);
                 JSONObject jsonObject = new JSONObject(result);
                 String search = jsonObject.getString("Search");
                 JSONArray jsonArray = new JSONArray(search);
@@ -95,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(this,"Data not found.",Toast.LENGTH_LONG).show();
         }
     }
 
